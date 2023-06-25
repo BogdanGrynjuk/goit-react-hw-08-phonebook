@@ -1,11 +1,19 @@
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
-import { deleteContact } from "redux/operations";
+import { deleteContact } from "redux/contacts/operations"; 
 import { Button, Contact, Icon, Text } from "./ContactItem.styled";
+import { updateFilter } from "redux/filter/filterSlice";
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import { firstLetterCaps } from "utilities";
 
 const ContactItem = ({ id, name, number }) => {
   const dispatch = useDispatch();
-  const handleDelete = () => dispatch(deleteContact(id));
+  
+  const handleDelete = () => {
+    dispatch(deleteContact(id));
+    dispatch(updateFilter(""));
+    Notify.info(`${firstLetterCaps(name)} successfully removed from contacts`);
+  };
   
   return (
     <Contact key={id}>

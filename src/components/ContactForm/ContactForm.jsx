@@ -1,29 +1,34 @@
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { selectContacts } from "redux/selectors";
-import { addContact } from "redux/operations";
+import { selectContacts } from "redux/contacts/selectors";
+import { addContact } from "redux/contacts/operations";
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { Formik } from 'formik';
 
 import { Button, Field, Form, Icon, Label } from './ContactForm.styled';
+import { firstLetterCaps } from "utilities";
 
 const ContactForm = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(selectContacts);  
 
-  const handleSubmit = (value, { resetForm }) => {
-    const isDuplicate = contacts.find(contact => contact.name.toLowerCase() === value.name.toLowerCase());
+  const handleSubmit = ({ name, number }, { resetForm }) => {
+    const isDuplicateName = contacts.find(contact => contact.name.toLowerCase() === name.toLowerCase());
+    const isDuplicateNumber = contacts.find(contact => contact.number === number);
     
-    if (isDuplicate) {
-      Notify.failure(`${value.name} is already in contacts`);
-      resetForm();
-      return;
-    }
+    if (isDuplicateNumber || isDuplicateName) {     
+      <>
+        { isDuplicateName && Notify.failure(`${firstLetterCaps(name)} is already in contacts`) };      
+        { isDuplicateNumber && Notify.failure(`Phone number ${number} is already in your phone book`) };
+      </>            
+      // resetForm();
+      return; 
+    };
 
-    dispatch(addContact(value));
-    Notify.success(`${value.name} successfully added to contact list`);
+    dispatch(addContact({name, number}));
+    Notify.success(`${firstLetterCaps(name)} successfully added to contact list`);    
     resetForm();
-  };  
+  }; 
 
   return (
     <Formik
