@@ -1,12 +1,21 @@
-import PropTypes from "prop-types";
-import { Wrapper } from "./Layout.styled";
+import { Outlet } from 'react-router-dom';
+import { Suspense } from 'react';
 
-const Layout = ({ children }) => {
-  return <Wrapper>{children}</Wrapper>;
-};
+import AppBar from "components/AppBar";
+import { Main } from "./Layout.styled";
+import Loader from 'components/Loader';
 
-Layout.propTypes = {
-  children: PropTypes.node.isRequired
+const Layout = () => {
+  return (
+    <>
+      <AppBar />
+      <Main>
+        <Suspense fallback={<Loader text='Loading page'/>}>
+          <Outlet />
+        </Suspense>
+      </Main>;
+    </>
+  );
 };
 
 export default Layout;

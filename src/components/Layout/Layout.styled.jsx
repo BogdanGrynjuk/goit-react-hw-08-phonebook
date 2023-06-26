@@ -1,10 +1,9 @@
 import styled from "@emotion/styled";
 
-export const Wrapper = styled.main`
+export const Main = styled.main`
   display: flex;
-  align-items: flex-start;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  padding: 20px;
-  width: 100vw;
-  height: 100vh;
+  padding: 16px;  
 `;

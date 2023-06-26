@@ -1,51 +1,32 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchContacts } from 'redux/contacts/operations';
-
-import { selectContacts, selectError, selectIsLoading } from 'redux/contacts/selectors';
+import { lazy } from 'react';
+import { Route, Routes } from 'react-router-dom';
 
 import Layout from './Layout';
-import PhoneBook from './PhoneBoock';
-import ContactForm from './ContactForm';
-import Contacts from './Contacts';
-import Filter from './Filter';
-import Loader from "./Loader";
-import ContactList from './ContactList';
-import Message from "./Message";
-import ContactsCounter from "./ContactsCounter";
+
+
+const HomePage = lazy(() => import('../pages/Home'));
+const RegisterPage = lazy(() => import('../pages/Register'));
+const LoginPage = lazy(() => import('../pages/Login'));
+const ContactsPage = lazy(() => import('../pages/Contacts'));
+const ErrorPage = lazy(() => import('../pages/Error'));
 
 const App = () => {
-  const dispatch = useDispatch();  
 
-  const isLoading = useSelector(selectIsLoading);
-  const error = useSelector(selectError);
-
-  const countContacts = useSelector(selectContacts).length;
-
-  useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
 
   return (
-    <Layout>
-      <PhoneBook>
-        <ContactForm />
-        <Contacts>
-          {isLoading && <Loader />}
-          {error && <Message message={error} />}
-          {!isLoading && countContacts > 1 && <Filter />}
-          {!isLoading && countContacts > 0 &&
-            <>
-              <ContactsCounter />
-              <ContactList />
-            </>
-          }
-          {!isLoading && countContacts === 0 &&
-            <Message message="There are no contacts in your phone book" />
-          }
-        </Contacts>
-      </PhoneBook>
-    </Layout>
+
+    <>
+      <Routes>
+        <Route path='/' element={<Layout />}>
+          <Route index element={<HomePage />} />
+          <Route path='/register' element={<RegisterPage />} />
+          <Route path='/login' element={<LoginPage />} />
+          <Route path='/contacts' element={<ContactsPage />} />
+          <Route path='*' element={<ErrorPage />} />    
+        </Route>
+      </Routes>
+    </>
+   
   );
 };
 
