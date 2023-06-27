@@ -9,8 +9,7 @@ const LoginForm = () => {
   const handleSubmit = ({email, password}, { resetForm }) => {
     dispatch(logIn({ email, password }));
     resetForm();
-  };
-  
+  };  
 
   return (  
     <Formik

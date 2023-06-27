@@ -1,23 +1,22 @@
 import { useDispatch, useSelector } from "react-redux";
-
+import { useEffect } from "react";
+import { fetchContacts } from "redux/contacts/operations";
 import {
   selectIsLoading,
   selectError,
   selectVisibleContacts,
   selectContacts
 } from "redux/contacts/selectors";
-import ContactList from "components/ContactList/ContactList";
-import Filter from "components/Filter/Filter";
-import Message from "components/Message/Message";
-import Loader from "components/Loader/Loader";
-import Contacts from "components/Contacts/Contacts";
-import ContactForm from "components/ContactForm/ContactForm";
-// import PhoneBook from "components/PhoneBook/PhoneBook";
-import { useEffect } from "react";
-import { fetchContacts } from "redux/contacts/operations";
-import ContactsCounter from "components/ContactsCounter/ContactsCounter";
 
+import ContactList from "components/ContactList";
+import Filter from "components/Filter";
+import Message from "components/Message";
+import Loader from "components/Loader";
+import Contacts from "components/Contacts";
+import ContactForm from "components/ContactForm";
 import PhoneBook from "components/PhoneBoock";
+import ContactsCounter from "components/ContactsCounter";
+
 
 export default function ContactsPage() {
   const dispatch = useDispatch();

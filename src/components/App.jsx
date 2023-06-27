@@ -25,7 +25,7 @@ const App = () => {
   }, [dispatch]);
   
   return isRefreshing ? (
-    <Loader />
+    <Loader text="Refreshing user..." />
   ) : (
     <>
       <Routes>

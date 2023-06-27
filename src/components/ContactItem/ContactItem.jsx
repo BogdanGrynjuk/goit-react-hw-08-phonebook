@@ -1,27 +1,41 @@
 import PropTypes from "prop-types";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { deleteContact } from "redux/contacts/operations"; 
-import { Button, Contact, Icon, Text } from "./ContactItem.styled";
-import { updateFilter } from "redux/filter/filterSlice";
+import { deleteContact } from "redux/contacts/operations";
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+
+import Modal from "components/Modal";
+import ContactEditor from "components/ContactEditor";
 import { firstLetterCaps } from "utilities";
 
-const ContactItem = ({ id, name, number }) => {
+import { Button, Contact, IconDelete, IconEdit, Text } from "./ContactItem.styled";
+
+const ContactItem = ({ id, name, number, index }) => {  
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
-  
+
   const handleDelete = () => {
     dispatch(deleteContact(id));
-    dispatch(updateFilter(""));
     Notify.info(`${firstLetterCaps(name)} successfully removed from contacts`);
   };
-  
+
+  const toggleModal = () => setIsModalOpen(!isModalOpen);
+
   return (
     <Contact key={id}>
-      <Text>{name}: {number}</Text>
-      <Button type="button" onClick={handleDelete}>
-        Delete
-        <Icon/>
+      <Button className="buttonEdit" type="button" onClick={toggleModal}>
+        <IconEdit edit="true" />
       </Button>
+      <Button type="button" onClick={handleDelete}>
+        <IconDelete />
+      </Button>
+      <Text><span>{name}:</span>{number}</Text>
+      {isModalOpen && (        
+        <Modal onClose={toggleModal}>
+          <h1>Contact editor</h1>
+          <ContactEditor index={index} />
+        </Modal>
+      )}
     </Contact>
   );
 };
@@ -29,7 +43,8 @@ const ContactItem = ({ id, name, number }) => {
 ContactItem.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  number: PropTypes.string.isRequired,  
+  number: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired,
 };
 
 export default ContactItem;

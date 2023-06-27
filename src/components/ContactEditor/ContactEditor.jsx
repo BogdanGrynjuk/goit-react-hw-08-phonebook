@@ -1,87 +1,84 @@
+import PropTypes from "prop-types";
+import { Formik } from 'formik';
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { selectContacts } from "redux/contacts/selectors";
-import { addContact } from "redux/contacts/operations";
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
-import { Formik } from 'formik';
+import { firstLetterCaps } from 'utilities';
+import { selectContacts } from "redux/contacts/selectors";
+import { updateContact } from "redux/contacts/operations";
+import { Button, Field, Form, Icon, Label } from './ContactEditor.styled';
 
-import { Button, Field, Form, Icon, Label } from './ContactForm.styled';
-import { firstLetterCaps } from "utilities";
-
-const ContactForm = () => {
+const ContactEditor = ({ index }) => {
   const dispatch = useDispatch();
   const contacts = useSelector(selectContacts);  
-
+  const currentContact = contacts[index]; 
+  
   const handleSubmit = ({ name, number }, { resetForm }) => {
     const isDuplicateName = contacts.find(contact => {
-      if (contact.name.toLowerCase() === name.toLowerCase()) return true;
-      return false
+      if (currentContact.name.toLowerCase() === name.toLowerCase()) return false;
+      return contact.name.toLowerCase() === name.toLowerCase();
     });
-    
+
     const isDuplicateNumber = contacts.find(contact => {
-      if (contact.number === number) return true;
-      return false;
+      if (currentContact.number === number) return false;
+      return contact.number === number;
     });
-    
+        
     if (isDuplicateNumber || isDuplicateName) {     
       <>
         { isDuplicateName && Notify.failure(`${firstLetterCaps(name)} is already in contacts`) };      
-        { isDuplicateNumber && Notify.failure(`Phone number ${number} is already in your phone book`) };
-      </>            
-      // resetForm();
-      return; 
+        { isDuplicateNumber && Notify.failure(`${number} is already in contacts`) }; 
+      </>
+      return;
     };
 
-    dispatch(addContact({name, number}));
-    Notify.success(`${firstLetterCaps(name)} successfully added to contact list`);    
+    dispatch(updateContact({name, number, id: currentContact.id}));
+    Notify.success( `Contact ${firstLetterCaps(currentContact.name)} successfully changed`);    
     resetForm();
-  }; 
+  };
 
   return (
     <Formik
       initialValues={{
-        name: '',
-        number: '',
+        name: currentContact.name,
+        number: currentContact.number,
       }}
       onSubmit={handleSubmit}
-    >
+    >      
       <Form>
         <Label>
-          Name
+          Edit name
           <Field id="name"
             type="text"
             name="name"
-            placeholder="Please enter a name"
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
             title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-            required>
-          </Field>
+            autoFocus
+            required
+          />
         </Label>
-
         <Label>
-          Phone number
+          Edit phone number
           <Field
             id="number"
             type="tel"
             name="number"
-            placeholder="Please enter a phone number"
             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
             required
           />
-        </Label>
-        
-        <Button type="submit">
-          Add new contact
+        </Label>        
+        <Button type="submit" >
+          Change contact
           <Icon />
-        </Button>
-        
-        
-      </Form>
+        </Button>        
+      </Form>      
     </Formik>
   );
 };
 
+ContactEditor.propTypes = {
+  index: PropTypes.number.isRequired,
+};
 
-
-export default ContactForm;
+export default ContactEditor;

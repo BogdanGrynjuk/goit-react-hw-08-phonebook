@@ -4,14 +4,12 @@ import { Formik } from 'formik';
 import { Form, Label, Field, Button, Icon } from './RegisterForm.styled';
 
 const RegisterForm = () => {
-
   const dispatch = useDispatch();
 
   const handleSubmit = ({name, email, password}, {resetForm}) => {     
     dispatch(register({ name, email, password }));
     resetForm();
-  };
-  
+  };  
 
   return (     
     <Formik
