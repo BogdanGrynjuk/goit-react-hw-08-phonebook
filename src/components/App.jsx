@@ -1,7 +1,9 @@
-import { lazy } from 'react';
+import { lazy, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 
 import Layout from './Layout';
+import { refreshUser } from 'redux/auth/operations';
 
 
 const HomePage = lazy(() => import('../pages/Home'));
@@ -11,6 +13,11 @@ const ContactsPage = lazy(() => import('../pages/Contacts'));
 const ErrorPage = lazy(() => import('../pages/Error'));
 
 const App = () => {
+  const dispath = useDispatch();
+
+  useEffect(() => {
+    dispath(refreshUser);
+  }, [dispath]);
 
 
   return (

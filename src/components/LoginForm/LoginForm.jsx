@@ -1,7 +1,15 @@
+import { useDispatch } from 'react-redux';
+import { logIn } from 'redux/auth/operations';
 import { Formik } from 'formik';
 import { Form, Label, Field, Button, Icon } from './LoginForm.styled';
 
 const LoginForm = () => {
+  const dispatch = useDispatch();
+
+  const handleSubmit = ({email, password}, { resetForm }) => {
+    dispatch(logIn({ email, password }));
+    resetForm();
+  };
   
 
   return (  
@@ -10,7 +18,7 @@ const LoginForm = () => {
         email: '',
         password: '',
       }}
-      onSubmit={()=>{}}
+      onSubmit={handleSubmit}
     >
       <Form>        
         <Label>
