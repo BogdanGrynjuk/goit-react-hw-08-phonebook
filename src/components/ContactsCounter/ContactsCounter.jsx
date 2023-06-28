@@ -1,5 +1,4 @@
 import { useSelector } from "react-redux";
-// import { selectContacts, selectVisibleContacts } from "redux/selectors";
 import { selectContacts, selectVisibleContacts } from "redux/contacts/selectors";
 import { Counter } from "./ContactsCounter.styled";
 

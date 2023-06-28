@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { deleteContact } from "redux/contacts/operations";
+import { updateFilter } from "redux/filter/filterSlice";
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 import Modal from "components/Modal";
@@ -16,6 +17,7 @@ const ContactItem = ({ id, name, number, index }) => {
 
   const handleDelete = () => {
     dispatch(deleteContact(id));
+    dispatch(updateFilter(""));
     Notify.info(`${firstLetterCaps(name)} successfully removed from contacts`);
   };
 
