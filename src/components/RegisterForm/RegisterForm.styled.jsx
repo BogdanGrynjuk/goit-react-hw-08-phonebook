@@ -74,4 +74,3 @@ export const Icon = styled(MdHowToReg)`
   height: 16px;
   transition: box-shadow 250ms linear;
 `;
-

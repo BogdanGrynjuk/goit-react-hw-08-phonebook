@@ -1,15 +1,24 @@
 import { useDispatch } from 'react-redux';
-import { register } from 'redux/auth/operations';
 import { Formik } from 'formik';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
+
+import { register } from 'redux/auth/operations';
+import { registerValidationSchema } from 'validations/authValidation';
 import { Form, Label, Field, Button, Icon } from './RegisterForm.styled';
 
 const RegisterForm = () => {
   const dispatch = useDispatch();
 
-  const handleSubmit = ({name, email, password}, {resetForm}) => {     
-    dispatch(register({ name, email, password }));
-    resetForm();
-  };  
+  const handleSubmit = async ({name, email, password}) => {  
+    try {
+      await registerValidationSchema.validate({name, email, password }, { abortEarly: false });
+      dispatch(register({ name, email, password }));     
+    } catch (error) {
+      error.inner.forEach(err => {
+        Notify.failure(err.message);
+      });
+    }
+  };
 
   return (     
     <Formik
@@ -27,7 +36,6 @@ const RegisterForm = () => {
             type="text"
             name="name"
             placeholder="Please enter your name"            
-            required
           />
         </Label>
         <Label>
@@ -35,8 +43,7 @@ const RegisterForm = () => {
           <Field id='email'
             type="email"
             name="email"
-            placeholder="Please enter your email address"
-            required
+            placeholder="Please enter your email address"           
           />
         </Label>
         <Label>
@@ -45,7 +52,6 @@ const RegisterForm = () => {
             type="password"
             name="password"
             placeholder="Please enter your password"            
-            required
           />
         </Label>
         <Button type="submit">

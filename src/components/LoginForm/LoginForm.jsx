@@ -1,14 +1,23 @@
 import { useDispatch } from 'react-redux';
-import { logIn } from 'redux/auth/operations';
 import { Formik } from 'formik';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
+
+import { logIn } from 'redux/auth/operations';
+import { loginValidationSchema } from 'validations/authValidation';
 import { Form, Label, Field, Button, Icon } from './LoginForm.styled';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
 
-  const handleSubmit = ({email, password}, { resetForm }) => {
-    dispatch(logIn({ email, password }));
-    resetForm();
+  const handleSubmit = async ({ email, password }) => {
+    try {
+      await loginValidationSchema.validate({ email, password }, { abortEarly: false })
+      dispatch(logIn({ email, password }));
+    } catch (error) {
+      error.inner.forEach(err => {
+        Notify.failure(err.message);
+      });
+    }
   };  
 
   return (  
@@ -25,8 +34,7 @@ const LoginForm = () => {
           <Field id='email'
             type="email"
             name="email"
-            placeholder="Please enter your email address"
-            required
+            placeholder="Please enter your email address"            
           />
         </Label>
         <Label>
@@ -34,8 +42,7 @@ const LoginForm = () => {
           <Field id='password'
             type="password"
             name="password"
-            placeholder="Please enter your password"            
-            required
+            placeholder="Please enter your password"
           />
         </Label>
         <Button type="submit">

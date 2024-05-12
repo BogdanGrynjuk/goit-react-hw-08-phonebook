@@ -28,7 +28,11 @@ export const register = createAsyncThunk(
       Notify.success('Your registration is successful!');
       return res.data;
     } catch (error) {
-      Notify.failure('Sorry, wrong register, try reloading the page!');
+      if (error.response.status === 400 && error.response.data.code === 11000) {
+        Notify.failure('This email is already in use.');
+      } else {
+        Notify.failure('Sorry, wrong register, try reloading the page!');
+      }
       return thunkAPI.rejectWithValue(error.message);
     }
   }
@@ -48,7 +52,9 @@ export const logIn = createAsyncThunk(
       Notify.success('Your registration is successful!');
       return res.data;
     } catch (error) {
-      Notify.failure('Sorry, wrong request, try reloading the page!');
+      Notify.failure(
+        'Sorry, wrong request. Сheck if your email or password is correct'
+      );
       return thunkAPI.rejectWithValue(error.message);
     }
   }
