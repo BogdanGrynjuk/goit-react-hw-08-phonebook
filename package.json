@@ -1,8 +1,8 @@
 {
-  "name": "app-phonebook",
+  "name": "goit-react-hw-08-phonebook",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://bogdangrynjuk.github.io/app-phonebook/",
+  "homepage": "https://bogdangrynjuk.github.io/goit-react-hw-08-phonebook/",
   "dependencies": {
     "@emotion/css": "^11.10.6",
     "@emotion/react": "^11.10.4",
