@@ -7,14 +7,12 @@ import { firstLetterCaps } from 'utilities';
 import { selectContacts, selectVisibleContacts } from "redux/contacts/selectors";
 import { updateContact } from "redux/contacts/operations";
 import { updateFilter } from "redux/filter/filterSlice";
-import { Button, Field, Form, Icon, Label } from './ContactEditor.styled';
+import { Button, Field, Form, Group, HelperText, Icon, Label } from './ContactEditor.styled';
 
 const ContactEditor = ({ index }) => {
   const dispatch = useDispatch();
   const contacts = useSelector(selectContacts);
-  /////////////
   const visibleContacts = useSelector(selectVisibleContacts);
-  /////////////
   const currentContact = visibleContacts[index]; 
   
   const handleSubmit = ({ name, number }, { resetForm }) => {
@@ -51,7 +49,8 @@ const ContactEditor = ({ index }) => {
       onSubmit={handleSubmit}
     >      
       <Form>
-        <Label>
+        <Group>
+          <Label>
           Edit name
           <Field id="name"
             type="text"
@@ -61,8 +60,12 @@ const ContactEditor = ({ index }) => {
             autoFocus
             required
           />
-        </Label>
-        <Label>
+          </Label>
+          <HelperText>For example: Adrian, Jacob Mercer</HelperText>
+        </Group>
+
+        <Group>
+          <Label>
           Edit phone number
           <Field
             id="number"
@@ -72,7 +75,10 @@ const ContactEditor = ({ index }) => {
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
             required
           />
-        </Label>        
+          </Label>
+          <HelperText>For example: +38 067 1234567</HelperText>
+        </Group>       
+               
         <Button type="submit" >
           Change contact
           <Icon />

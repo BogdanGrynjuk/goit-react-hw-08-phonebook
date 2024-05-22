@@ -19,13 +19,19 @@ export const ModalContent = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;
-  width: 30%;
+  width: calc(320px - 64px);
   padding: 16px;
   background-color: rgb(235, 235, 235);;
   border: 1px solid black;
   border-radius: 4px;
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.25),
               0 5px 5px rgba(0, 0, 0, 0.25);
+
+   @media screen and (min-width: 768px) {
+    width: 100%;
+    max-width: calc(768px - 64px);    
+  }
+
   & > h1 {
     font-size: 28px;
     text-align: center;

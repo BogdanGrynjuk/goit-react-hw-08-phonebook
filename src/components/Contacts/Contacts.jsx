@@ -4,7 +4,7 @@ import { Wrapper, Title } from "./Contacts.styled";
 const Contacts = ({ children }) => {
   return (
     <Wrapper>
-      <Title>Contacts</Title>
+      <Title>List of contacts</Title>
       {children}
     </Wrapper>
   );

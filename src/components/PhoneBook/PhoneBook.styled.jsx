@@ -3,8 +3,8 @@ import styled from "@emotion/styled";
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 12px; 
-  max-width: calc(320px - 64px);
+  gap: 12px;
+  max-width: calc(320px - 64px);  
   padding: 16px;
   border: 1px solid black;
   border-radius: 4px;
@@ -23,24 +23,21 @@ export const Wrapper = styled.div`
   }
 `;
 
+export const Title = styled.h1`
+  font-size: 28px;
+  text-align: center;
+`;
+
 export const Content = styled.div`
   display: flex;
   flex-direction: column;
-  row-gap: 16px;
-  text-align: center;
-`;
+  gap: 12px;
 
-export const Greeting = styled.h1`
-  font-weight: 500;
-  text-align: center;
-`;
+   @media screen and (min-width: 1280px) {    
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 24px;
+  }
 
-export const UserName = styled.span`
-  text-transform: capitalize;
-  font-weight: 700;
-  color: red;
 `;
-
-export const Action = styled.h2`
-  font-weight: 500;
-`

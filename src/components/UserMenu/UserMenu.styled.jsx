@@ -8,11 +8,18 @@ export const Wrapper = styled.div`
 `;
 
 export const UserName = styled.p`
+  display: none;
   font-weight: 700;
-   & > span{
-    color: red;
+  color: rgb(0, 0, 0);
+
+  @media screen and (min-width: 768px){
+    display: block;
+  }
+
+  & > span{
+    color: rgb(255, 0, 0);
     text-transform: capitalize;
-   }
+  }
 `; 
 
 export const Button = styled.button`
@@ -22,7 +29,7 @@ export const Button = styled.button`
   gap: 8px;
   margin-left: auto;
   padding: 4px;  
-  background-color: rgb(255, 255, 255);
+  background-color: transparent;
   border: none;
   outline: none;  
   font-size: 16px;

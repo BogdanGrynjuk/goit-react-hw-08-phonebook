@@ -8,7 +8,7 @@ export default function Login() {
       <Helmet>
         <title>Login</title>
       </Helmet>      
-      <Title>Authorization form</Title>
+      <Title>Authentication</Title>
       <LoginForm />
     </Wrapper>
   );

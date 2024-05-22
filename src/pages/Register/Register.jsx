@@ -8,7 +8,7 @@ export default function Register() {
       <Helmet>
         <title>Registration</title>
       </Helmet>
-      <Title>Registration form</Title>
+      <Title>Registration</Title>
       <RegisterForm />
     </Wrapper>
   );

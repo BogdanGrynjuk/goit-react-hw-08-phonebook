@@ -1,11 +1,13 @@
 import PropTypes from "prop-types";
-import { Title, Wrapper } from "./PhoneBook.styled";
+import { Content, Title, Wrapper } from "./PhoneBook.styled";
 
 const PhoneBook = ({ children }) => {
   return (
     <Wrapper>
-      <Title>Phone Boock</Title>
-      {children}
+      <Title>Your Phone Book</Title>
+      <Content>
+        {children}
+      </Content>
     </Wrapper>
   );
 };

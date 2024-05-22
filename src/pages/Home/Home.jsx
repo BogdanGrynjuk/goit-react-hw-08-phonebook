@@ -1,5 +1,5 @@
 import { useAuth } from 'hooks';
-import { Greeting, Wrapper } from './Home.styled';
+import { Action, Content, Greeting, UserName, Wrapper } from './Home.styled';
 
 export default function Home() {
   const { isLoggedIn, user }= useAuth();
@@ -7,8 +7,16 @@ export default function Home() {
   return (
     <Wrapper>
       {isLoggedIn
-        ? <Greeting><span>{user.name}</span>, welcome to phone book!</Greeting>
-        : <Greeting>Welcome to phone book!<br/>Please pass register or authorization</Greeting>
+        ?
+        <Content>
+          <Greeting><UserName>{user.name}</UserName>, welcome to Phonebook!</Greeting>
+        </Content>
+        :
+        <Content>
+          <Greeting>Welcome to Phonebook!</Greeting>
+          <Action>Create your own personal book of contacts</Action>
+          <Action>Please register or log in to continue</Action>
+        </Content>
       }      
     </Wrapper>
   );

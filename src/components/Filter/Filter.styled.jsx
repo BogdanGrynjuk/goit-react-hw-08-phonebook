@@ -8,14 +8,15 @@ export const Label = styled.label`
   padding: 8px;
   border: 1px solid black;
   border-radius: 4px;
-  font-size: 16px;
+  background-color: rgb(255, 255, 255);
+  font-size: 20px;
   font-weight: bold;
   font-family: 'Roboto', sans-serif;  
 `;
 
 export const Field = styled.input`
   padding: 4px 12px;
-  width: 250px;  
+  width: calc(100% - 24px);
   border: 1px solid black;
   border-radius: 12px;
   transition: box-shadow 250ms linear;

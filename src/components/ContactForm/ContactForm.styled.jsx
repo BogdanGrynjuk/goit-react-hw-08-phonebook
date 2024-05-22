@@ -9,22 +9,25 @@ export const Form = styled(FormikForm)`
   padding: 8px;  
   border: 1px solid black;
   border-radius: 4px;
-  background-color: white;  
+  background-color: rgb(255, 255, 255);  
   font-size: 20px;
   font-family: 'Roboto', sans-serif;
   font-weight: bold;  
 `;
 
+export const Group = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+`;
+
 export const Field = styled(FormikField)`
   padding: 4px 12px;
-  width: 250px;  
+  width: calc(100% - 24px);
+  max-width: 400px;
   border: 1px solid black;
   border-radius: 12px;
-  transition: box-shadow 250ms linear;
-
-  &::placeholder {
-    text-align: center;
-  }
+  transition: box-shadow 250ms linear;  
 
   &:hover,
   &:focus {
@@ -32,12 +35,30 @@ export const Field = styled(FormikField)`
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.25),
                 0 5px 5px rgba(0, 0, 0, 0.25);    
   };
+
+  @media screen and (min-width: 768px) {
+    &::placeholder{
+      text-align: center;
+    }
+  }
 `;
 
 export const Label = styled.label`
   display: flex;
-  align-items: center;
-  justify-content: space-between;  
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  
+  @media screen and (min-width: 768px) {
+    flex-direction: row;
+    justify-content: space-between;
+  }  
+`;
+
+export const HelperText = styled.div`
+  font-size: 11px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: normal;  
 `;
 
 export const Button = styled.button`
@@ -47,7 +68,7 @@ export const Button = styled.button`
   gap: 8px;
   margin-left: auto;
   padding: 4px;  
-  background-color: white;
+  background-color: transparent;
   border: none;
   outline: none;  
   font-size: 16px;

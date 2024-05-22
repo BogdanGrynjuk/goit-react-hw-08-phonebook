@@ -5,7 +5,7 @@ import { addContact } from "redux/contacts/operations";
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { Formik } from 'formik';
 
-import { Button, Field, Form, Icon, Label } from './ContactForm.styled';
+import { Button, Field, Form, Group, HelperText, Icon, Label } from './ContactForm.styled';
 import { firstLetterCaps } from "utilities";
 
 const ContactForm = () => {
@@ -27,8 +27,7 @@ const ContactForm = () => {
       <>
         { isDuplicateName && Notify.failure(`${firstLetterCaps(name)} is already in contacts`) };      
         { isDuplicateNumber && Notify.failure(`Phone number ${number} is already in your phone book`) };
-      </>            
-      // resetForm();
+      </>
       return; 
     };
 
@@ -46,7 +45,8 @@ const ContactForm = () => {
       onSubmit={handleSubmit}
     >
       <Form>
-        <Label>
+        <Group>
+          <Label>
           Name
           <Field id="name"
             type="text"
@@ -57,8 +57,10 @@ const ContactForm = () => {
             required>
           </Field>
         </Label>
-
-        <Label>
+          <HelperText>For example: Adrian, Jacob Mercer</HelperText>
+        </Group>
+        <Group>
+          <Label>
           Phone number
           <Field
             id="number"
@@ -70,18 +72,15 @@ const ContactForm = () => {
             required
           />
         </Label>
-        
+          <HelperText>For example: +38 067 1234567</HelperText>
+        </Group>        
         <Button type="submit">
           Add new contact
           <Icon />
-        </Button>
-        
-        
+        </Button>       
       </Form>
     </Formik>
   );
 };
-
-
 
 export default ContactForm;

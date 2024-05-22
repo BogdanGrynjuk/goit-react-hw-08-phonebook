@@ -13,7 +13,7 @@ const Layout = () => {
         <Suspense fallback={<Loader text='Loading page'/>}>
           <Outlet />
         </Suspense>
-      </Main>;
+      </Main>
     </>
   );
 };

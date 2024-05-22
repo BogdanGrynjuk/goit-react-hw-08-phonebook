@@ -14,8 +14,9 @@ import Message from "components/Message";
 import Loader from "components/Loader";
 import Contacts from "components/Contacts";
 import ContactForm from "components/ContactForm";
-import PhoneBook from "components/PhoneBoock";
+import PhoneBook from "components/PhoneBook";
 import ContactsCounter from "components/ContactsCounter";
+import ControlPanel from "components/ControlPanel";
 
 
 export default function ContactsPage() {
@@ -31,11 +32,13 @@ export default function ContactsPage() {
 
   return (
     <PhoneBook>
-      <ContactForm />
+      <ControlPanel>
+        <ContactForm />
+        {!isLoading && countContacts > 1 && <Filter />}
+      </ControlPanel>
       <Contacts>
         {isLoading && <Loader text={'Loading contacts...'} />}
         {error && <Message message={error} />}
-        {!isLoading && countContacts > 1 && <Filter />}
         {!isLoading && countContacts > 0 &&
           <>
             <ContactsCounter

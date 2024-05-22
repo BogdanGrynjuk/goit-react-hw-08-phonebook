@@ -7,10 +7,16 @@ export const Wrapper = styled.div`
   padding: 8px;  
   border: 1px solid black;
   border-radius: 4px;
-  background-color: white;
+  background-color: rgb(255, 255, 255);
+
+   @media screen and (min-width: 1280px) {    
+    gap: 24px;
+    width: calc(100% / 2 - 12px);
+    max-width: calc(1280px / 2 - 12px);
+  }
 `;
 
 export const Title = styled.h2`
-  font-size: 24px;
+  font-size: 20px;
   text-align: center;
 `;
