@@ -20,7 +20,7 @@ const RegisterForm = () => {
     }
   };
 
-  return (     
+  return (
     <Formik
       initialValues={{
         name: '',
@@ -31,44 +31,44 @@ const RegisterForm = () => {
     >
       <Form>
         <Group>
-           <Label>
-          User name
-          <Field id='name'
-            type="text"
-            name="name"
-            placeholder="Please enter your name"
-            autoComplete="username"
-          />
+          <Label>
+            User name
+            <Field id='name'
+              type="text"
+              name="name"
+              placeholder="Please enter your name"
+              autoComplete="username"
+            />
           </Label>
           <HelperText>For example: Adrian, Jacob Mercer</HelperText>
         </Group>
         <Group>
-           <Label>
-          Email
-          <Field id='email'
-            type="email"
-            name="email"
-            placeholder="Please enter your email address"
-            autoComplete="email"
-          />
-        </Label>
+          <Label>
+            Email
+            <Field id='email'
+              type="email"
+              name="email"
+              placeholder="Please enter your email address"
+              autoComplete="email"
+            />
+          </Label>
           <HelperText>Enter a valid email address</HelperText>
         </Group>
         <Group>
-           <Label>
-          Password
-          <Field id='password'
-            type="password"
-            name="password"
-            placeholder="Please enter your password" 
-            autoComplete="current-password"
-          />
-        </Label>
+          <Label>
+            Password
+            <Field id='password'
+              type="password"
+              name="password"
+              placeholder="Please enter your password"
+              autoComplete="current-password"
+            />
+          </Label>
           <HelperText>Password must contains min 7 charecters</HelperText>
-        </Group>       
+        </Group>
         <Button type="submit">
           Register
-          <Icon/>
+          <Icon />
         </Button>
       </Form>
     </Formik>

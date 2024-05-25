@@ -36,7 +36,7 @@ const LoginForm = () => {
             type="email"
             name="email"
             placeholder="Please enter your email address"
-           autoComplete="email"
+            autoComplete="email"
           />
         </Label>
           <HelperText>Enter a valid email address</HelperText>
