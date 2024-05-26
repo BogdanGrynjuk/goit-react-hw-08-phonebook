@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Formik } from 'formik';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
@@ -8,6 +9,7 @@ import { Form, Label, Field, Button, Icon, Group, HelperText } from './RegisterF
 
 const RegisterForm = () => {
   const dispatch = useDispatch();
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async ({name, email, password}) => {  
     try {
@@ -55,10 +57,12 @@ const RegisterForm = () => {
           <HelperText>Enter a valid email address</HelperText>
         </Group>
         <Group>
-          <Label>
+          <Label
+            onMouseEnter={() => setShowPassword(true)}
+            onMouseLeave={() => setShowPassword(false)}>
             Password
             <Field id='password'
-              type="password"
+              type={showPassword ? "text" : "password"}
               name="password"
               placeholder="Please enter your password"
               autoComplete="current-password"
